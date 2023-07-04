@@ -11,12 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Calculator',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Calculator'),
+      home: const MyHomePage(
+          title: 'Calculator',
+      ),
     );
   }
 }
@@ -31,20 +34,23 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   String output = '0';
+
+  String _output = '0';
   double num1 = 0.0;
   double num2 = 0.0;
   String operand = '';
 
   buttonPressed(String buttonText) {
     if(buttonText == 'CLEAR') {
-      _output = '0';
+      _output = "0";
       num1 = 0.0;
       num2 = 0.0;
       operand = '';
-    } else if (buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'x') {
+    } else if (buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'X') {
 
-      numb1 = double.parse(output);
+      num1 = double.parse(output);
 
       operand = buttonText;
 
@@ -67,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if(operand == '-') {
         _output = (num1 - num2).toString();
       }
-      if (operand == 'x') {
+      if (operand == 'X') {
         _output == (num1 * num2).toString();
       }
       if(operand == '/') {
@@ -88,9 +94,105 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Widget buildButton(String buttonText) {
+    return Expanded(
+      child: OutlinedButton(
+        autofocus: true,
+          onPressed: () => buttonPressed(buttonText),
+
+          child: Text(
+            buttonText,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          )
+      ),
+    );
+ }
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: child)
+    return Scaffold(
+
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: const TextStyle(
+            color: Colors.red,
+            fontSize: 36,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+      ),
+      body: Column(
+        children: <Widget> [
+          Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(
+              vertical: 24.0,
+              horizontal: 12.0
+            ),
+            child: Text(
+              output,
+              style: const TextStyle(
+                fontSize: 48.0,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
+          const Expanded(
+              child: Divider(),
+          ),
+
+
+          Column(
+            children: [
+              Row(
+                children: [
+                  buildButton('7'),
+                  buildButton('8'),
+                  buildButton('9'),
+                  buildButton('/')
+                ],
+              ),
+
+              Row(
+                children: [
+                  buildButton('4'),
+                  buildButton('5'),
+                  buildButton('6'),
+                  buildButton('X')
+                ],
+              ),
+              Row(
+                children: [
+                  buildButton('1'),
+                  buildButton('2'),
+                  buildButton('3'),
+                  buildButton('-')
+                ],
+              ),
+
+              Row(
+                children: [
+                  buildButton('.'),
+                  buildButton('0'),
+                  buildButton('00'),
+                  buildButton('+')
+                ],
+              ),
+
+              Row(
+                children: [
+                  buildButton('CLEAR'),
+                  buildButton('=')
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
