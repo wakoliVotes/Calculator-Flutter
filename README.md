@@ -1,6 +1,12 @@
-# calculator_flutter
+# Calculator App
 
 Calculator made with Flutter
+
+## Screenshots
+<img src='' height='520' width='200' >
+<img src='' height='520' width='200' >
+<img src='' height='520' width='200' >
+
 
 ## Getting Started
 
